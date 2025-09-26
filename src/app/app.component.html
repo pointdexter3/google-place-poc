@@ -5,102 +5,9 @@
   </header>
 
   <div class="search-section">
-    <div class="input-container">
-      <input
-        type="text"
-        [(ngModel)]="searchQuery"
-        (input)="onSearchChange($any($event.target).value)"
-        placeholder="Start typing an address..."
-        class="search-input"
-        autocomplete="off">
-
-      <button
-        *ngIf="searchQuery"
-        (click)="clearSearch()"
-        class="clear-button"
-        type="button">
-        ✕
-      </button>
-    </div>
-
-    <!-- Loading indicator -->
-    <div *ngIf="isLoading" class="loading">
-      <div class="spinner"></div>
-      <span>Searching...</span>
-    </div>
-
-    <!-- Error message -->
-    <div *ngIf="error" class="error">
-      {{ error }}
-    </div>
-
-    <!-- Predictions -->
-    <div *ngIf="predictions.length > 0" class="predictions-container">
-      <h3>Address Suggestions:</h3>
-      <div class="predictions">
-        <button
-          *ngFor="let prediction of predictions; trackBy: trackByPlaceId"
-          (click)="onPredictionClick(prediction)"
-          class="prediction-item"
-          type="button">
-          <div class="prediction-main">{{ prediction.structured_formatting.main_text }}</div>
-          <div class="prediction-secondary">{{ prediction.structured_formatting.secondary_text }}</div>
-        </button>
-      </div>
-    </div>
-
-    <!-- No Results Found -->
-    <div *ngIf="searchQuery && searchQuery.length >= 3 && predictions.length === 0 && !isLoading && !error" class="no-results">
-      <div class="no-results-icon">🔍</div>
-      <h3>No addresses found</h3>
-      <p>We couldn't find any addresses matching "<strong>{{ searchQuery }}</strong>"</p>
-      <p class="suggestion">Try:</p>
-      <ul class="suggestions">
-        <li>Checking your spelling</li>
-        <li>Using a more specific address</li>
-        <li>Including city, state, or country</li>
-        <li>Using landmarks or well-known locations</li>
-      </ul>
-    </div>
   </div>
 
-  <!-- Selected Address Details -->
-  <div *ngIf="selectedAddress" class="selected-address">
-    <h3>Selected Valid Address:</h3>
-    <div class="address-card">
-      <div class="address-header">
-        <h4>{{ selectedAddress.name || 'Address' }}</h4>
-        <span class="place-id">ID: {{ selectedAddress.place_id }}</span>
-      </div>
 
-      <div class="address-details">
-        <div class="detail-row">
-          <strong>Formatted Address:</strong>
-          <span>{{ selectedAddress.formatted_address }}</span>
-        </div>
-
-        <div class="detail-row">
-          <strong>Coordinates:</strong>
-          <span>{{ selectedAddress.geometry.location.lat }}, {{ selectedAddress.geometry.location.lng }}</span>
-        </div>
-
-        <div class="detail-row">
-          <strong>Types:</strong>
-          <span>{{ selectedAddress.types.join(', ') }}</span>
-        </div>
-
-        <div *ngIf="selectedAddress.address_components.length > 0" class="detail-row">
-          <strong>Address Components:</strong>
-          <div class="components">
-            <div *ngFor="let component of selectedAddress.address_components" class="component">
-              <span class="component-value">{{ component.long_name }}</span>
-              <span class="component-types">({{ component.types.join(', ') }})</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Instructions -->
   <div class="instructions">
@@ -111,7 +18,7 @@
       <li>View the complete address details below</li>
     </ol>
     <p class="note">
-      <strong>Note:</strong> You'll need to add your Google Places API key in the places.service.ts file to enable the functionality.
+      <strong>Note:</strong> This uses the Google Maps JavaScript API Places UI Kit for client-side autocomplete.
     </p>
   </div>
 </div>

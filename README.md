@@ -2,6 +2,11 @@
 
 A proof-of-concept Angular 19 application demonstrating address autocomplete functionality using Google Places API for BMO.
 
+
+## OTHER BANKS
+- **TD** https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service (DEPRECATED)
+- **TANGERINE** https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service (DEPRECATED)
+
 ## Features
 
 - **Real-time Address Search**: Type-ahead search with debounced input (300ms delay)
