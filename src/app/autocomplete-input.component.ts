@@ -1,7 +1,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { GoogleMapsAutocompleteService, PlacePrediction, PlaceDetails } from './google-maps-autocomplete.service';
+import { GoogleMapsAutocompleteService } from './google-maps-autocomplete.service';
+import { PlacePrediction, PlaceDetails } from './google-maps.consts';
 
 @Component({
   selector: 'app-autocomplete-input',
@@ -29,17 +30,6 @@ import { GoogleMapsAutocompleteService, PlacePrediction, PlaceDetails } from './
             (mouseenter)="selectedIndex = i"
           >
             <div class="secondary-text">{{ prediction.addressText }}</div>
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="selectedPlace" class="selected-place-info">
-        <h3>Selected Place:</h3>
-        <div class="place-details">
-          <div><strong>Name:</strong> {{ selectedPlace.displayName }}</div>
-          <div><strong>Address:</strong> {{ selectedPlace.formattedAddress }}</div>
-          <div *ngIf="selectedPlace.location">
-            <strong>Location:</strong> {{ selectedPlace.location.lat }}, {{ selectedPlace.location.lng }}
           </div>
         </div>
       </div>
@@ -159,7 +149,7 @@ export class AutocompleteInputComponent {
   selectedIndex = -1;
   private debounceTimer: any;
 
-  constructor(private autocompleteService: GoogleMapsAutocompleteService) {}
+  constructor(private readonly autocompleteService: GoogleMapsAutocompleteService) {}
 
   onInputChange(event: any): void {
     const input = event.target.value;

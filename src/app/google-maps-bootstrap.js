@@ -2,8 +2,12 @@
  * Official Google Maps JavaScript API Bootstrap
  * Source: https://developers.google.com/maps/documentation/javascript/loading-the-maps-api
  * https://developers.google.com/maps/documentation/javascript/place-get-started?_gl=1*jg9az5*_up*MQ..*_ga*MzY3OTc2NjMzLjE3NTg4NTI1Njc.*_ga_SM8HXJ53K2*czE3NTg4NTI1NjYkbzEkZzAkdDE3NTg4NTI1NjYkajYwJGwwJGgw*_ga_NRWSTWS78N*czE3NTg4NTI1NjYkbzEkZzEkdDE3NTg4NTQyMTYkajIkbDAkaDA.#load-places-library
+ *
  * This is the exact bootstrap code from Google's documentation.
- * Only the config object is parameterized to accept API key and version.
+ * Keeping as unadulterated as possible to make upgrades easier (vs converting to TypeScript).
+ *
+ * An API call is made to load the Google Maps JavaScript API script
+ *  (so we need to listen for the importLibrary promise to resolve before using any of the library classes).
  */
 
 export function initializeGoogleMaps(apiKey, version = 'weekly') {

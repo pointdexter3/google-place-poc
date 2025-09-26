@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AutocompleteInputComponent } from './autocomplete-input.component';
-import { PlaceDetails } from './google-maps-autocomplete.service';
+import { PlaceDetails } from './google-maps.consts';
 
 @Component({
   selector: 'app-place-autocomplete-page',
@@ -20,12 +20,26 @@ import { PlaceDetails } from './google-maps-autocomplete.service';
         <div *ngIf="selectedAddress" class="selected-address-summary">
           <h3>Selected Address Summary:</h3>
           <div class="address-card">
-            <div class="address-name">{{ selectedAddress.displayName }}</div>
             <div class="address-formatted">{{ selectedAddress.formattedAddress }}</div>
-            <div *ngIf="selectedAddress.location" class="address-coordinates">
-              Coordinates: {{ selectedAddress.location.lat }}, {{ selectedAddress.location.lng }}
+
+            <h2>Address Components:</h2>
+            <div class="address-components-grid">
+              <div class="address-components-column">
+                <h3>In Formatted Address</h3>
+                <div *ngFor="let addressComponent of selectedAddress.addressComponentsInFormattedAddress" class="address-component">
+                  <div class="address-name">{{ addressComponent.type }}</div>
+                  <div class="address-formatted">{{ addressComponent.formattedText }}</div>
+                </div>
+              </div>
+
+              <div class="address-components-column">
+                <h3>All Components (Raw)</h3>
+                <div *ngFor="let addressComponent of selectedAddress.addressComponentsRaw" class="address-component">
+                  <div class="address-name">{{ addressComponent.type }}</div>
+                  <div class="address-formatted">{{ addressComponent.longText || addressComponent.shortText }}</div>
+                </div>
+              </div>
             </div>
-            <div class="address-id">Place ID: {{ selectedAddress.placeId }}</div>
           </div>
         </div>
       </div>
@@ -106,6 +120,59 @@ import { PlaceDetails } from './google-maps-autocomplete.service';
       font-size: 0.8rem;
       color: #adb5bd;
       font-family: monospace;
+    }
+
+    .address-components-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .address-components-column {
+      background: white;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #dee2e6;
+    }
+
+    .address-components-column h3 {
+      margin: 0 0 15px 0;
+      font-size: 1rem;
+      color: #495057;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 8px;
+    }
+
+    .address-component {
+      margin-bottom: 10px;
+      padding: 8px;
+      background: #f8f9fa;
+      border-radius: 4px;
+      border-left: 3px solid #28a745;
+    }
+
+    .address-component:last-child {
+      margin-bottom: 0;
+    }
+
+    .address-component .address-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #495057;
+      margin-bottom: 4px;
+    }
+
+    .address-component .address-formatted {
+      font-size: 0.85rem;
+      color: #6c757d;
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+      .address-components-grid {
+        grid-template-columns: 1fr;
+      }
     }
   `],
   imports: [CommonModule, AutocompleteInputComponent],
